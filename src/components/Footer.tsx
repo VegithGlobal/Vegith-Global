@@ -34,7 +34,7 @@ export function Footer() {
   </a>
 
   <a
-    href="https://www.facebook.com/"
+    href="https://www.facebook.com/share/1EZArHPfkD/"
     target="_blank"
     rel="noopener noreferrer"
     className="w-10 h-10 rounded-lg flex items-center justify-center text-white transition-all duration-300"
@@ -44,7 +44,7 @@ export function Footer() {
   </a>
 
   <a
-    href="https://www.instagram.com/"
+    href="https://www.instagram.com/vegithglobal01?igsh=MW90bjJ6MGJkcTd3MA=="
     target="_blank"
     rel="noopener noreferrer"
     className="w-10 h-10 rounded-lg flex items-center justify-center text-white transition-all duration-300"

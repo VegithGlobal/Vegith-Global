@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ArrowRight, Target, Eye, Users, Building2, Briefcase } from "lucide-react";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { Link } from "react-router-dom";
 
 
 const groupCompanyCards = [
@@ -149,7 +150,7 @@ export default function AboutPage() {
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {/* Leadership card */}
-            <motion.a
+            <motion.div
               href="/about/leadership"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -167,10 +168,10 @@ export default function AboutPage() {
                 </div>
                 <p className="text-sm text-gray-500">Meet the experienced leaders driving Vegith's vision and operational excellence.</p>
               </div>
-            </motion.a>
+            </motion.div>
 
             {/* Group card */}
-            <motion.a
+            <motion.div
               href="/about/group"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -188,7 +189,7 @@ export default function AboutPage() {
                 </div>
                 <p className="text-sm text-gray-500">Explore VGS, MLPL fleet division, and Vegith HR — three entities, one ecosystem.</p>
               </div>
-            </motion.a>
+            </motion.div>
           </div>
         </div>
       </section>
