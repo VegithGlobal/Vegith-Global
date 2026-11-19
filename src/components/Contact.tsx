@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { getContactEmailHref, submitContactEnquiry } from "@/lib/contact";
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
 const [formData, setFormData] = useState({
   name: "",
@@ -13,29 +16,19 @@ const [formData, setFormData] = useState({
   service: "",
   message: "",
 });
-const handleSubmit = async (e: any) => {
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  setLoading(true);
+  setError(false);
 
   try {
-    const response = await fetch(
-      "https://api.vegithglobal.com/api/contact",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
-
-    const result = await response.json();
-
-    if (result.success) {
-      setSubmitted(true);
-    }
+    await submitContactEnquiry(formData);
+    setSubmitted(true);
   } catch (error) {
     console.error(error);
-    alert("Failed to send enquiry");
+    setError(true);
+  } finally {
+    setLoading(false);
   }
 };
   return (
@@ -120,6 +113,18 @@ const handleSubmit = async (e: any) => {
                    className="space-y-4"
                    onSubmit={handleSubmit}
                  >
+                {error && (
+                  <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                    We couldn’t send your enquiry. Please try again or{" "}
+                    <a
+                      className="font-semibold underline"
+                      href={getContactEmailHref(formData)}
+                    >
+                      email us instead
+                    </a>
+                    .
+                  </p>
+                )}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Full Name *</label>
@@ -232,10 +237,11 @@ const handleSubmit = async (e: any) => {
                   data-testid="btn-submit"
                   className="w-full py-3.5 rounded-lg text-sm font-semibold text-white transition-colors"
                   style={{ backgroundColor: "#0a1628" }}
+                  disabled={loading}
                   onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#1a2d4a")}
                   onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#0a1628")}
                 >
-                  Submit Enquiry
+                  {loading ? "Sending..." : "Submit Enquiry"}
                 </button>
               </form>
             )}

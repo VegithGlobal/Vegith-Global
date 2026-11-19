@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Mail, Phone, MapPin, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { getContactEmailHref, submitContactEnquiry } from "@/lib/contact";
 
 const offices = [
   {
@@ -58,6 +59,7 @@ export default function ContactPage() {
 const [submitted, setSubmitted] = useState(false);
 const [activeOffice, setActiveOffice] = useState(0);
 const [loading, setLoading] = useState(false);
+const [error, setError] = useState(false);
 
 const [formData, setFormData] = useState({
   name: "",
@@ -73,29 +75,14 @@ const [formData, setFormData] = useState({
   e.preventDefault();
 
   setLoading(true);
+  setError(false);
 
   try {
-    const response = await fetch(
-      "https://api.vegithglobal.com/api/contact",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
-
-    const result = await response.json();
-
-    if (result.success) {
-      setSubmitted(true);
-    } else {
-      alert("Failed to send enquiry");
-    }
+    await submitContactEnquiry(formData);
+    setSubmitted(true);
   } catch (err) {
     console.error(err);
-    alert("Failed to send enquiry");
+    setError(true);
   } finally {
     setLoading(false);
   }
@@ -221,6 +208,18 @@ const [formData, setFormData] = useState({
   className="space-y-4"
   onSubmit={handleSubmit}
                 >
+                  {error && (
+                    <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                      We couldn’t send your enquiry. Please try again or{" "}
+                      <a
+                        className="font-semibold underline"
+                        href={getContactEmailHref(formData)}
+                      >
+                        email us instead
+                      </a>
+                      .
+                    </p>
+                  )}
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Full Name *</label>
