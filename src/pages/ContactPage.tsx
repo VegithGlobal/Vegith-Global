@@ -10,7 +10,7 @@ const offices = [
   {
     city: "Mumbai (Head Office)",
     address: `Guru Hargovindji Rd, Chakala, Andheri East, Mumbai, Maharashtra 400093`,
-    phone: "+91 99999 00001",
+    phone: "+91 8237336417",
     email: "info@vegithglobal.com",
     mapUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2314.856635903877!2d72.85874180014896!3d19.112403953084144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9658f2e49b9%3A0x973c5ea5411ff845!2sVegith%20Global%20-%20Logistic%20Services!5e1!3m2!1sen!2sin!4v1781768503787!5m2!1sen!2sin",
@@ -143,7 +143,7 @@ const [formData, setFormData] = useState({
               <div className="space-y-4">
                 {[
                   { icon: Mail, label: "Email Us", value: "info@vegithglobal.com" },
-                  { icon: Phone, label: "Call Us", value: "+91 99999 00001" },
+                  { icon: Phone, label: "Call Us", value: "+91 8237336417" },
                   { icon: Clock, label: "Working Hours", value: "Mon–Sat, 9:00 AM – 7:00 PM IST" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4">
